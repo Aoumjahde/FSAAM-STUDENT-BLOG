@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Noto+Sans+Mono:wght@100..900&display=swap');
+
+:root {
+    --color-gray: #D4C9BE;
+    --color-white: #F1EFEC;
+    --color-blue-dark: #123458;
+    --color-blue-light: #33A1E0;
+    --color-black: #030303;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Comic Relief";
+}
+
+html {
+    scroll-behavior: smooth;
+}
+nav, button {
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+nav {
+    justify-content: space-around;
+    align-items: center;
+    height: 17vh;
+    background: var(--color-white);
+}

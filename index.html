@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FSB</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav id="nav">
         <div class="logo"><a href="/">FSB</a></div>
@@ -18,10 +20,10 @@
             <div>
                 <div id="register-div">
                     <h1>Log In</h1>
-                    <form  id="register-form">
+                    <form id="register-form">
                         <input type="text" id="register-username" placeholder="Username">
                         <input type="password" id="register-password" placeholder="Password">
-                        <select  id="register-role">
+                        <select id="register-role">
                             <option value="reader">Reader</option>
                             <option value="admin">Admin</option>
                         </select>
@@ -46,11 +48,52 @@
 
     </nav>
 
+    <main>
+        <!-- Post list logic-->
+        <div id="post-list">
+            <div id="post-id" class="post">
+                <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=
+                500&auto=format&fit=crop&q=60&ixlib=rb-4.
+                1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZGluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Image">
+                <div class="post-title">
+                    <H1><a href="#">Kifach TQRA?</a></H1>
+                </div>
+                <span><p>Author <p>Timestamp</p></p></span>
+                <div id="admin-buttons">
+                    <button class="btn">Delet</button>
+                    <button class="btn">Create</button>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div id="new-post-div" style="display: none;">
+            <div id="new-post-div">
+                <h1>New Post</h1>
+                <form id="new-post-form">
+                    <input type="text" id="title" placeholder="Title">
+                    <textarea id="content" placeholder="Content"></textarea>
+                    <input type="text" id="image-url" placeholder="image-URL">
+                    <button type="submit">Create Post</button>
+                </form>
+            </div>
+            <div id="post-detail-container"></div>
+    </main>
+    <footer>
+        <h2>FSB</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Laborum illo veritatis optio nostrum quas dolor quaerat
+            eius nesciunt esse consectetur.</p>
+        <span>
+            <p>&copy;2026</p>
+        </span>
+    </footer>
+
 
 
 
     <script class="script.js" defer></script>
     <script class="nav.js" defer></script>
-        
+
 </body>
+
 </html>

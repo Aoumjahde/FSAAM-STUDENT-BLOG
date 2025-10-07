@@ -1,4 +1,8 @@
-function sitYear(){
+const hamburger = document.querySelector('.nav_hamburger');
+const linksContainer = document.querySelector('.nav_menu');
 
-    return new Date().getFullYear()
-}
+
+hamburger.addEventListener('click', () => {
+    linksContainer.classList.toggle('active');
+    hamburger.classList.toggle('active');
+});

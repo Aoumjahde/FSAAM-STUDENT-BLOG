@@ -60,8 +60,8 @@ nav {
     width: 30px;
     height: 21px;
     display: none;
-    justify-content: space-around;
     flex-direction: column;
+    justify-content: space-around;
     position: absolute;
     top: 16px;
     right: 32px;

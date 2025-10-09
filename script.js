@@ -237,12 +237,12 @@ async function updatePost(event, postId) {
             alert('Update post successfule');
             fetchPosts(baseURL);
         }else {
-            alert('Update post failed.')
+            alert('Update post failed.1')
         }
 
         }catch(error) {
             console.error(`An error occured during the  fetch: ${error}`)
-            alert('Update post failed.')
+            alert('Update post failed.2')
         }
 }
 
@@ -294,7 +294,7 @@ async function registerUser(event, baseURL) {
         }      
         catch(error) {
             console.error(`An error occured during the  fetch: ${error}`)
-            alert('Update post failed.')
+            alert('Update post failed.3')
         }
 }
 

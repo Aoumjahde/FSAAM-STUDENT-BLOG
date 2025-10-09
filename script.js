@@ -256,9 +256,9 @@ async function registerUser(event, baseURL) {
     const passwordInput = document.getElementById('register-password');
     const roleInput = document.getElementById('register-role');
 
-    const username = usernameInput;
-    const password = passwordInput;
-    const role = roleInput;
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+    const role = roleInput.value;
     // check if inputs not empty
 
     if (!username || !password || !role) {
@@ -273,8 +273,8 @@ async function registerUser(event, baseURL) {
     };
 
     try {
-        const response = await fetch (`${baseURL}/register/`,{
-            method: 'PUT',
+        const response = await fetch (`${baseURL}/register`,{
+            method: 'POST',
             headers: {
                 "Content-Type": 'application/json',
             },    

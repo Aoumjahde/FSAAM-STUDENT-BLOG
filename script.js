@@ -249,54 +249,47 @@ async function updatePost(event, postId) {
 
 // Regestier
 
-async function registerUser(event, baseURL) {
-    event.preventDefault();
+async function registerUser(event, baseUrl) {
+  event.preventDefault();
+  const usernameInput = document.getElementById('register-username');
+  const passwordInput = document.getElementById('register-password');
+  const roleInput = document.getElementById('register-role');
 
-    const usernameInput = document.getElementById('register-username');
-    const passwordInput = document.getElementById('register-password');
-    const roleInput = document.getElementById('register-role');
+  const username = usernameInput.value;
+  const password = passwordInput.value;
+  const role = roleInput.value;
 
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-    const role = roleInput.value;
-    // check if inputs not empty
+  // ensure that inputs are not empty
+  if (!username || !password || !role) {
+    alert('Please fill in all fields 3.');
+    return;
+  }
 
-    if (!username || !password || !role) {
-        alert('Please fill in all fields.3');
-        return;
-    }
+  const newUser = {
+    username,
+    password,
+    role,
+  };
 
-    const newUser = {
-        username,
-        password,
-        role,
-    };
+  const res = await fetch(`${baseUrl}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newUser),
+  });
 
-    try {
-        const res = await fetch (`${baseURL}/register`,{
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json',
-            },    
-            body: JSON.stringify(newUser),
-        });
+  const data = await res.json();
 
-        const data =  await res.json()
-
-        if(data.ok){
-            alert('Registered successful !');
-            usernameInput.value = '';
-            passwordInput.value = '';
-            roleInput.value = '';
-        }else {
-            alert('Registration failed.')
-        }
-        }      
-        catch(error) {
-            console.error(`An error occured during the  fetch: ${error}`)
-            alert('Update post failed.3')
-        }
+  if (data.success) {
+    alert('Registered successful!');
+    // Clear input fields
+    usernameInput.value = '';
+    passwordInput.value = '';
+    roleInput.value = '';
+  } else {
+    alert('Registration failed.');
+  }
 }
-
 
 

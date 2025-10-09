@@ -256,9 +256,9 @@ async function registerUser(event, baseURL) {
     const passwordInput = document.getElementById('register-password');
     const roleInput = document.getElementById('register-role');
 
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-    const role = roleInput.value;
+    const username = usernameInput;
+    const password = passwordInput;
+    const role = roleInput;
     // check if inputs not empty
 
     if (!username || !password || !role) {

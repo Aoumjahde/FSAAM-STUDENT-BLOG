@@ -283,7 +283,7 @@ async function registerUser(event, baseURL) {
 
         const data =  await response.json()
 
-        if(data.ok){
+        if(data.success){
             alert('Registered successful !');
             usernameInput.value = '';
             passwordInput.value = '';

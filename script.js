@@ -111,7 +111,7 @@ async function createPost(event, baseURL) {
     // ensure that inputs are not empty
 
     if (!title || !content || !image){
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields.1');
         return;
     }
 
@@ -214,7 +214,7 @@ async function updatePost(event, postId) {
     // check if inputs not empty
 
     if (!title || !content) {
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields.2');
         return;
     }
 
@@ -262,7 +262,7 @@ async function registerUser(event, baseURL) {
     // check if inputs not empty
 
     if (!username || !password || !role) {
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields.3');
         return;
     }
 

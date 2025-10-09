@@ -252,9 +252,9 @@ async function updatePost(event, postId) {
 async function registerUser(event, baseURL) {
     event.preventDefault();
 
-    const usernameInput = document.getElementById('register-username').value;
-    const passwordInput = document.getElementById('register-password').value;
-    const roleInput = document.getElementById('register-role').value;
+    const usernameInput = document.getElementById('register-username');
+    const passwordInput = document.getElementById('register-password');
+    const roleInput = document.getElementById('register-role');
 
     const username = usernameInput.value;
     const password = passwordInput.value;

@@ -7,7 +7,7 @@ let username = localStorage.getItem('username');
 // set the username in the HTML
 
 const usernameElement = document.getElementById('username');
-usernameElement.textContent = storedUseranem;
+usernameElement.textContent = storedUsername;
 
 // Load page and event listeners
 
@@ -67,7 +67,7 @@ async function fetchPosts(baseURL) {
                 const updateButtonStyle = isAdmin ? '': 'display: none';
 
                 return `
-                <div id="${post.id}" class="post">
+                <div id="${post._id}" class="post">
                     <img src="${post.imageURL}" alt='image>
                     <div class="post-title">
                         ${
@@ -82,10 +82,10 @@ async function fetchPosts(baseURL) {
                             :''
                         }
                     <div id="admin-buttons">
-                        <button class="btn" style="${deleteButtonStyle}" onClick= "deletePost('${post._id}', '${baseURL}')">Delet</button>
-                        <button class="btn" style="${deleteButtonStyle}" onClick= "showUpdateForm('${post._id}', '${post.title}', ${post.content})">Update</button>
+                        <button class="btn" style="${deleteButtonStyle}" onclick= "deletePost('${post._id}', '${baseURL}')">Delet</button>
+                        <button class="btn" style="${updateButtonStyle}" onclick= "showUpdateForm('${post._id}', '${post.title}', ${post.content})">Update</button>
                     </div>
-                     ${index === 0 ? '<hr/>': ''}
+                     ${index === 0 ? '<hr>': ''}
                      ${index === 0 ? '<h2>All Articles<h2/>': ''}
                             
                     <hr/>
@@ -119,7 +119,7 @@ async function createPost(event, baseURL) {
         title,
         content,
         imageURL,
-        author: storedUseranem,
+        author: storedUsername,
         timestamp: new Date().toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day:'numeric'}),
     };
 

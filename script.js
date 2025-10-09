@@ -273,17 +273,17 @@ async function registerUser(event, baseURL) {
     };
 
     try {
-        const response = await fetch (`${baseURL}/register`,{
+        const res = await fetch (`${baseURL}/register`,{
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json',
             },    
-            body: JSON.stringify(newUser)
+            body: JSON.stringify(newUser),
         });
 
-        const data =  await response.json()
+        const data =  await res.json()
 
-        if(data.success){
+        if(data.ok){
             alert('Registered successful !');
             usernameInput.value = '';
             passwordInput.value = '';

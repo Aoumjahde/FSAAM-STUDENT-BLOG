@@ -11,7 +11,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
-const { timeStamp } = require('console');
+const { timeStamp, error } = require('console');
 
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -117,3 +117,141 @@ app.prependOnceListener('/register', async (req, res)=> {
     await newUser.save();
     res.status(201).send({ success: true });
 })
+
+// User login
+app.post('/login', async (req, res)=>{
+    const {username, password} = req.body;
+    // Sanitze and validate user input
+
+    const sanitizedUsername = validator.escape(username);
+    const sanitizedPassword = validator.escape(password);
+
+    // Ensue valid input data
+    if (!sanitizedUsername || sanitizedPassword) {
+        return res.status(400).send({ error: 'Invalid Input Data'});
+    }
+
+    const user = await User.findOne({username:sanitizedUsername});
+
+    if (user) {
+        if (bcrypt.compare(password, user.password)){
+            const accessToken = jwt.sign(
+                {
+                    username:user.username, role:user.role
+                },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: '24h',
+                }
+            );
+            res.status(200).send({success: true, token: accessToken, role: user.role})
+        }else {
+            res.status(401).send({ success: false});
+        }
+    }else {
+            res.status(401).send({ success: false});
+        }
+});
+
+// Read All posts
+
+app.get('/posts', async( req, res)=>{
+    const posts = await Post.find();
+    res.status(200).send(posts);
+});
+
+app.post('/posts', authenticationJWT, async (req, res) => {
+    if (req.user.role === 'admin'){
+        const {title, content, imageUrl, author, timeStamp} = req.body;
+
+        const newPost = new Post({
+            title,
+            content,
+            imageUrl,
+            author,
+            timestamp,
+        });
+        newPost
+        .save()
+        .then((savedPost)=>{
+            res.status(201).send(savedPost);
+        })
+        .catch((erro) => {
+            res.status(500).send({error: 'Internal Server Error'})
+        });
+    }else{
+        res.sendStatus(404);
+    }
+})
+
+
+app.get('/post:id', async(req, res) => {
+    const postId =req.params.id;
+    const post = await Post.findById(postId);
+
+    if (!post){
+        return res.status(404).send('Post not found')
+    }
+
+    // Read the HTML form the file
+
+    fs.readFile(path.join(__dirname, 'post-detail.html', 'utf8', (err, data)=>{
+        if (err){
+            console.log(err)
+            return res.status(500).send('Internal Server Error');
+        }
+
+        //replece placeholders in the HTML with actual post data
+
+        const postDetailHtml = data 
+        .replace(/\${post.imageUrl}/g, post.imageUrl)
+        .replace(/\${post.title}/g, post.title)
+        .replace(/\${post.timestamp}/g, post.imageUrl)
+        .replace(/\${post.author}/g, post.author)
+        .replace(/\${post.content}/g, post.content)
+
+        res.status(200).send(postDetailHtml)
+        
+    }));
+});
+
+// delet post 
+
+app.delet('/posts:id', authenticationJWT, async (req, res)=>{
+    if (req.user.role == 'admin'){
+        try{
+            await Post.findByIdAndDelete(req.params.id)
+            res.status(200).sedn({ message: 'Post deleted' });
+        }catch(error){
+            res.status(500).send({ error: 'Internal Server Error'});
+        }
+    }else{
+        res.status(403).send({error: 'Forbidden'})
+    }
+});
+
+// Update Post
+
+app.put('/postes:id', authenticationJWT, async(req, res) => {
+    const { title, content } = req.body;
+    const postId = req.params.id;
+
+    try {
+        const post = await Post.findById(postId);
+
+        if(!post) {
+            return res.status(404).send( { error : 'Post Not Found'});
+        }
+
+        if (req.user.role === 'admin'){
+            post.title = title;
+            post.content = content;
+            await post.save();
+            res.status(200).sed(post);
+        }else {
+            res.status(403).send({error: 'Forbidden'});
+        }
+    }catch(error){
+        res.status(500).send({error: 'Internal Server error'})
+    }
+ })

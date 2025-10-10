@@ -1,5 +1,6 @@
 // SERVER - FINAL CORRECTED CODE
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const favicon = require('serve-favicon');
@@ -55,7 +56,7 @@ const connectDB = async () => {
   }
 };
 
-// JWT Authentication Middleware - FIXED
+// JWT Authentication Middleware
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
   
@@ -81,7 +82,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// User registration - FIXED
+// User registration
 app.post('/register', async (req, res) => {
   try {
     const { username, password, role } = req.body;
@@ -112,7 +113,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// User login - FIXED
+// User login
 app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -130,7 +131,6 @@ app.post('/login', async (req, res) => {
       return res.status(401).send({ success: false, error: 'User not found' });
     }
 
-    // FIXED: Added await for bcrypt.compare
     const isPasswordValid = await bcrypt.compare(sanitizedPassword, user.password);
     
     if (isPasswordValid) {

@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "echo 'Build completed successfully'"
-    
+    "build": "echo 'No build process needed'",
+    "dev": "node index.js"
   },
   "repository": {
     "type": "git",
